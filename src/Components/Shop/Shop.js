@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import useCart from '../../Utilities/CustomHooks/useCart';
+import useProducts from '../../Utilities/CustomHooks/useProducts';
 import { addToDb, getShoppingCart } from '../../Utilities/FakeDB';
 import Cart from './Cart/Cart';
 import Product from './Product/Product';
 import './Shop.css';
 
 const Shop = () => {
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    fetch('products.json')
-      .then(res => res.json())
-      .then(data => setProducts(data))
-  }, []);
-
-  useEffect(() => {
-    const selectedProduct = getShoppingCart();
-    let selectedCart = [];
-    for (const id in selectedProduct) {
-      const matchedProduct = products.find(product => product.id === id);
-
-      if (matchedProduct) {
-        const quantity = selectedProduct[id];
-        matchedProduct.quantity = quantity;
-        // console.log(matchedProduct);
-        selectedCart.push(matchedProduct);
-        console.log(selectedCart);
+  const [products, setProducts] = useProducts();
+  const [cart, setCart] = useCart(products);
+  /*
+    useEffect(() => {
+      const selectedProduct = getShoppingCart();
+      let selectedCart = [];
+      for (const id in selectedProduct) {
+        const matchedProduct = products.find(product => product.id === id);
+  
+        if (matchedProduct) {
+          const quantity = selectedProduct[id];
+          matchedProduct.quantity = quantity;
+          // console.log(matchedProduct);
+          selectedCart.push(matchedProduct);
+          // console.log(selectedCart);
+        }
       }
-    }
-    setCart(selectedCart);
-  }, [products]);
-
+      setCart(selectedCart);
+    }, [products]);
+  */
   const handleAddToCart = (selectedProduct) => {
     addToDb(selectedProduct.id);
     let newCart = [];
@@ -60,7 +57,13 @@ const Shop = () => {
         }
       </div>
       <div className="cart-container">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart}>
+
+          <Link to='/order'>
+            <button>Review Order</button>
+          </Link>
+
+        </Cart>
       </div>
     </div>
   );
