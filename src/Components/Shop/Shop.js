@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import useCart from '../../Utilities/CustomHooks/useCart';
 import useProducts from '../../Utilities/CustomHooks/useProducts';
-import { addToDb, getShoppingCart } from '../../Utilities/FakeDB';
+import { addToDb, } from '../../Utilities/FakeDB';
 import Cart from './Cart/Cart';
 import Product from './Product/Product';
 import './Shop.css';
