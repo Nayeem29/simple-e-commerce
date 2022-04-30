@@ -29,15 +29,15 @@ const Shop = () => {
     }, [products]);
   */
   const handleAddToCart = (selectedProduct) => {
-    addToDb(selectedProduct.id);
+    addToDb(selectedProduct._id);
     let newCart = [];
-    const exist = cart.find(product => product.id === selectedProduct.id);
+    const exist = cart.find(product => product._id === selectedProduct._id);
     if (!exist) {
       selectedProduct.quantity = 1;
       newCart = [...cart, selectedProduct]
       setCart(newCart);
     } else {
-      const rest = cart.filter(product => product.id !== selectedProduct.id);
+      const rest = cart.filter(product => product._id !== selectedProduct._id);
       exist.quantity += 1;
       newCart = [...rest, exist];
     }
@@ -49,7 +49,7 @@ const Shop = () => {
       <div className="product-container">
         {
           products.map(product => <Product
-            key={product.id}
+            key={product._id}
             product={product}
             handleAddToCart={handleAddToCart}
           >

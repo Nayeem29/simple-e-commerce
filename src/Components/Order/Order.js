@@ -14,9 +14,9 @@ const Order = () => {
 
   const handleRemoveProduct = (shoeProduct) => {
     console.log(shoeProduct);
-    const rest = cart.filter(cartShoe => cartShoe.id !== shoeProduct.id);
+    const rest = cart.filter(cartShoe => cartShoe._id !== shoeProduct._id);
     setCart(rest);
-    removeFromDb(shoeProduct.id);
+    removeFromDb(shoeProduct._id);
   }
   return (
     <div>
